@@ -17,10 +17,10 @@
 
 
 
-6 配置 reCAPTCHA，前往 https://www.google.com/recaptcha/intro/v3.html 新建一个 reCAPTCHA v2 checkbox 验证，填入你的域名，获取 site key 和 secret 
+5 配置 reCAPTCHA，前往 https://www.google.com/recaptcha/intro/v3.html 新建一个 reCAPTCHA v2 checkbox 验证，填入你的域名，获取 site key 和 secret 
 ![image.png](https://i.loli.net/2020/05/11/SC94OsFWmilnJXI.png)
 
 
 
-7 复制 index.js 里面的内容到 cf workers 里面，填入相应的数据
+6 复制 index.js 里面的内容到 cf workers 里面，填入相应的数据
 
