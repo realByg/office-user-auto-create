@@ -15,6 +15,8 @@
 > 在 Microsoft 365 admin center 管理面板-账单-许可证
 > 然后点击你想看的「许可证」，在地址栏就有 skuid 了
 
+
+
 6 配置 reCAPTCHA，前往 https://www.google.com/recaptcha/intro/v3.html 新建一个 reCAPTCHA v2 checkbox 验证，填入你的域名，获取 site key 和 secret 
 ![image.png](https://i.loli.net/2020/05/11/SC94OsFWmilnJXI.png)
 
