@@ -1,9 +1,25 @@
+const page_config = {
+    'title': '微软全局子号自助开通',
+    'line1': '此全局订阅为A1',
+    'line2': '(5TB Onedrive + 在线版Office)',
+    'line3': ''
+}
 
-const tenant_id = '';
-const client_id = '';
-const client_secret = '';
-const skuId = '';
-const domain = '@example.com';
+const ms_config = {
+    'tenant_id': '',
+    'client_id': '',
+    'client_secret': '',
+    'skuId': '',
+    'domain': ''
+}
+
+//reCAPTCHA type:v2 Checkbox
+const recapctha_config = {
+    'site_key': '',
+    'secret_key': ''
+}
+
+
 
 var html = `
 <!DOCTYPE html>
@@ -12,18 +28,17 @@ var html = `
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>微软全局子号自助开通</title>
+    <title>${page_config.title}</title>
     <link rel="stylesheet" href="https://cdnjs.loli.net/ajax/libs/mdui/0.4.3/css/mdui.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullPage.js/3.0.8/fullpage.min.css">
     <link href="https://i.loli.net/2020/01/25/mHyKw936UxpEM1Y.png" rel="icon" type="image/png">
+    <script src="https://recaptcha.net/recaptcha/api.js" async defer></script>
     <style>
         .intro {
             background: url('https://i.loli.net/2020/01/25/KEScJXCBfAzaIjW.png') no-repeat;
             background-size: cover
         }
 
-    </style>
-    <style>
         .create-wait {
             display: none;
             position: absolute;
@@ -39,6 +54,24 @@ var html = `
             height: 100vh;
         }
 
+        @media screen and (max-width: 600px) {
+            .screen {
+                display: none
+            }
+
+            .mdui-toolbar>img {
+                margin: auto
+            }
+
+            .hero>.mdui-typo-display-3 {
+                font-size: 27px
+            }
+
+            .hero>.mdui-typo-title-opacity {
+                font-size: 15px
+            }
+        }
+
     </style>
 </head>
 
@@ -51,17 +84,20 @@ var html = `
         <div class="section intro">
 
             <div class="mdui-appbar mdui-appbar-fixed mdui-color-white">
-                <div class="mdui-toolbar">
-                    <a href="javascript:;" class="mdui-typo-headline">微软全局子号自助开通</a>
-                    <div class="mdui-toolbar-spacer"></div>
+                <div class="mdui-toolbar" style="width: 85%; margin: auto">
+                    <img class="mdui-img-fluid" src="https://i.loli.net/2020/04/21/ST9ru5mwVqUXnKO.png" alt="">
+                    <span class="mdui-typo-display-1 screen">|</span>
+                    <span class="mdui-typo-title screen">Office</span>
+                    <div class="mdui-toolbar-spacer screen"></div>
+                    <span class="mdui-typo-title screen"><i class="mdui-icon material-icons">account_circle</i></span>
                 </div>
             </div>
 
             <div class="mdui-text-color-white-text" align="center" style="width: 70%;margin: auto">
-                <img src="https://i.loli.net/2020/01/25/LF2q4bBN3rCMcDt.png" style="width: 250px">
-                <h1 style="font-size: 40px;font-weight: 500">微软全局子号自助开通</h1>
-                <h1 style="font-size: 30px;font-weight: 500">此全局订阅为A1</h1>
-                <h1 style="font-size: 30px;font-weight: 500">(5TB Onedrive + 在线版Office)</h1>
+                <h1 style="font-size: 40px;font-weight: 500">${page_config.title}</h1>
+                <h1 style="font-size: 40px;font-weight: 500">${page_config.line1}</h1>
+                <h1 style="font-size: 30px;font-weight: 500">${page_config.line2}</h1>
+                <h1 style="font-size: 30px;font-weight: 500">${page_config.line3}</h1>
                 <br><br><br><br>
                 <a href="#form"><button class="mdui-btn mdui-ripple mdui-color-red mdui-m-a-2" style="width: 140px;height: 50px">立即获取</button></a>
                 <a href="https://www.office.com/login"><button class="mdui-m-a-2 mdui-btn mdui-ripple mdui-color-white" style="width: 140px;height: 50px">登录</button></a>
@@ -95,6 +131,9 @@ var html = `
                             <input class="mdui-textfield-input" type="text" name="username" pattern="[A-z0-9]{1,50}" required>
                             <div class="mdui-textfield-error">@ 前面的字符，允许字母/数字</div>
                         </div>
+                        <br><br>
+                        <div class="g-recaptcha" data-sitekey="${recapctha_config.site_key}"></div>
+                        <br><br>
                         <input type="submit" class="mdui-btn mdui-ripple mdui-color-yellow" value="提交">
                         <div style="margin-top: 20px; color: gray">* 提交后账户信息将显示在网页上，请勿刷新</div>
                     </form>
@@ -147,7 +186,8 @@ var html = `
                             data: JSON.stringify({
                                 lastname: e.target['lastname'].value.trim(),
                                 firstname: e.target['firstname'].value.trim(),
-                                username: e.target['username'].value.trim()
+                                username: e.target['username'].value.trim(),
+                                token: grecaptcha.getResponse()
                             }),
                             success: function(res) {
                                 $('.create-wait').hide();
@@ -160,9 +200,12 @@ var html = `
                                     $('.ainfo').show();
                                 } else if (response.stat == 'username exists') {
                                     mdui.alert('创建失败，前缀已被占用');
+                                } else if (response.stat == 'wrong recaptcha') {
+                                    mdui.alert('人机身份验证错误');
                                 } else {
                                     JSON.stringify(response);
                                 }
+                                grecaptcha.reset();
                             },
                             contentType: "application/json"
                         });
@@ -175,7 +218,6 @@ var html = `
 </body>
 
 </html>
-
 `;
 
 function enQuery(data) {
@@ -209,14 +251,33 @@ function password_gen() {
     return randomstring;
 }
 
+async function validateRecaptcha(token) {
+    const url = 'https://www.google.com/recaptcha/api/siteverify';
+    const post_data = {
+        secret: recapctha_config.secret_key,
+        response: token
+    };
+    const reqOpt = {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        body: enQuery(post_data)
+    };
+    const response = await fetch(url, reqOpt);
+    const results = await response.json();
+    console.log('validateRecaptcha ' + results.success);
+    return results.success;
+}
+
 async function get_ms_token() {
-    const url = 'https://login.microsoftonline.com/' + tenant_id + '/oauth2/v2.0/token';
+    const url = 'https://login.microsoftonline.com/' + ms_config.tenant_id + '/oauth2/v2.0/token';
     const scope = 'https://graph.microsoft.com/.default';
 
     const post_data = {
         'grant_type': 'client_credentials',
-        'client_id': client_id,
-        'client_secret': client_secret,
+        'client_id': ms_config.client_id,
+        'client_secret': ms_config.client_secret,
         'scope': scope
     };
     const reqOpt = {
@@ -237,7 +298,7 @@ async function assignLicense(email, token) {
     const post_data = {
         "addLicenses": [{
             "disabledPlans": [],
-            "skuId": skuId
+            "skuId": ms_config.skuId
         }],
         "removeLicenses": []
     };
@@ -263,6 +324,7 @@ async function assignLicense(email, token) {
 async function createUser(requestBody, access_token) {
     const url = 'https://graph.microsoft.com/v1.0/users';
     const password = password_gen();
+    const userEmail = requestBody.username + '@' + ms_config.domain
     const post_data = {
         "accountEnabled": true,
         "displayName": requestBody.firstname + ' ' + requestBody.lastname,
@@ -272,7 +334,7 @@ async function createUser(requestBody, access_token) {
             "password": password,
             "forceChangePasswordNextSignIn": true
         },
-        "userPrincipalName": requestBody.username + domain,
+        "userPrincipalName": userEmail,
         "usageLocation": "CN"
     };
     console.log('createUser data ' + post_data);
@@ -296,12 +358,12 @@ async function createUser(requestBody, access_token) {
         return results;
     }
 
-    const assign_results = await assignLicense(requestBody.username + domain, access_token);
+    const assign_results = await assignLicense(userEmail, access_token);
 
     if (assign_results) {
         const account = {
             stat: 'success',
-            email: requestBody.username + domain,
+            email: userEmail,
             password: password
         };
         return account;
@@ -320,12 +382,20 @@ async function handleRequest(request) {
 
     switch (path) {
         case '/mscript':
-            const requestBody = await request.json();
+            if (request.method == 'POST') {
+                const requestBody = await request.json();
 
-            const ms_token = await get_ms_token();
-            const account = await createUser(requestBody, ms_token);
+                if (!await validateRecaptcha(requestBody.token)) {
+                    return new Response(JSON.stringify({
+                        stat: 'wrong recaptcha'
+                    }));
+                }
 
-            return new Response(JSON.stringify(account));
+                const ms_token = await get_ms_token();
+                const account = await createUser(requestBody, ms_token);
+
+                return new Response(JSON.stringify(account));
+            }
             break;
         default:
             return new Response(html, {
@@ -336,6 +406,7 @@ async function handleRequest(request) {
                 }
             });
     }
+
 }
 
 addEventListener('fetch', event => {
