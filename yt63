@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" type="image/x-icon" href="https://blobs.officehome.msocdn.com/images/content/images/favicon-8f211ea639.ico" />
+    <title>Office 365</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/mdui/0.4.3/css/mdui.min.css">
+    <script src="https://recaptcha.net/recaptcha/api.js" async defer></script>
+    <style>
+        @media screen and (max-width: 600px) {
+
+            .mdui-toolbar>img {
+                margin: auto
+            }
+
+            .hero>.mdui-typo-display-3 {
+                font-size: 27px
+            }
+
+            .hero>.mdui-typo-title-opacity {
+                font-size: 15px
+            }
+
+            .enroll {
+                padding: 40px 15px !important
+            }
+
+            .email {
+                display: block !important
+            }
+
+        }
+
+        @media screen and (min-width: 600px) {
+            .enroll {
+                padding: 50px 40px !important
+            }
+        }
+
+        .enroll-mdui-dialog {
+            max-width: inherit;
+            overflow-x: hidden;
+            overflow-y: scroll
+        }
+
+        .hero-bg {
+            background: url('https://i.loli.net/2020/01/25/KEScJXCBfAzaIjW.png') no-repeat;
+            background-size: cover;
+            height: 100vh;
+            overflow: scroll
+        }
+
+        .hero-btn {
+            width: 120px;
+            height: 45px;
+
+        }
+
+        .enroll {
+            background-color: white;
+            position: absolute;
+            color: black;
+            padding: 60px 60px 100px 60px;
+            display: none;
+        }
+
+        .email,
+        .code {
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-between
+        }
+
+    </style>
+</head>
+
+<body>
+
+    <div class="mdui-dialog" id="usernameExists">
+        <div class="mdui-dialog-title">用户名已存在！</div>
+        <div class="mdui-dialog-content">请更换用户名并重试！</div>
+        <div class="mdui-dialog-actions">
+            <button class="mdui-btn mdui-ripple" mdui-dialog-confirm>好</button>
+        </div>
+    </div>
+
+    <div class="mdui-dialog" id="wrongrecaptcha">
+        <div class="mdui-dialog-title">人机验证失败！</div>
+        <div class="mdui-dialog-content">憨憨你过了人机验证吗？</div>
+        <div class="mdui-dialog-actions">
+            <button class="mdui-btn mdui-ripple" mdui-dialog-confirm>好吧</button>
+        </div>
+    </div>
+
+    <div class="mdui-dialog" id="invalidcode">
+        <div class="mdui-dialog-title">激活码无效！</div>
+        <div class="mdui-dialog-content">请检查激活码输入无误！</div>
+        <div class="mdui-dialog-actions">
+            <button class="mdui-btn mdui-ripple" mdui-dialog-confirm>好</button>
+        </div>
+    </div>
+
+    <div class="mdui-appbar">
+        <div class="mdui-toolbar" style="width: 85%; margin: auto">
+            <img class="mdui-img-fluid" src="https://i.loli.net/2020/04/21/ST9ru5mwVqUXnKO.png" alt="">
+            <span class="mdui-typo-display-1 mdui-hidden-xs">|</span>
+            <span class="mdui-typo-title mdui-hidden-xs">Office</span>
+            <div class="mdui-toolbar-spacer mdui-hidden-xs"></div>
+            <span class="mdui-typo-title mdui-hidden-xs"><i class="mdui-icon material-icons">account_circle</i></span>
+        </div>
+    </div>
+
+    <div class="hero-bg mdui-typo mdui-text-color-white-text mdui-valign">
+
+        <div class="hero mdui-col-xs-10 mdui-col-offset-xs-1 mdui-text-center">
+            <div class="mdui-center mdui-typo-display-3">欢迎使用 Office</div>
+            <div class="mdui-typo-title-opacity">你可在这里创作、沟通、协作并完成重要工作。</div>
+            <br>
+            <button class="mdui-btn mdui-btn-raised mdui-ripple mdui-color-red mdui-m-a-1 hero-btn" id="getOffice">获取 Office</button>
+            <button class="mdui-btn mdui-btn-raised mdui-ripple mdui-color-white mdui-m-a-1 hero-btn" onclick="window.location.href='https://office.com/login'">登录</button>
+        </div>
+
+        <div class="enroll-mdui-dialog mdui-dialog enroll mdui-col-xs-10 mdui-col-offset-xs-1 mdui-col-md-8 mdui-col-offset-md-2 mdui-shadow-8" id="enroll">
+            <div class="mdui-typo-title">获取账号</div>
+            <hr><br>
+
+            <form>
+
+                <div class="mdui-col-md-6 mdui-col-offset-md-3 mdui-col-xs-12" style="display: none" id="createdAccount">
+                    <div class="mdui-textfield">
+                        <i class="mdui-icon material-icons mdui-text-color-pink">email</i>
+                        <p>邮箱：</p>
+                        <input class="mdui-textfield-input" type="email" value="" id="email">
+                    </div>
+                    <div class="mdui-textfield">
+                        <i class="mdui-icon material-icons mdui-text-color-pink">lock</i>
+                        <p>初始密码：</p>
+                        <input class="mdui-textfield-input" type="text" value="" id="password">
+                    </div>
+                    <br>
+                    <br>
+                    <a class="mdui-btn mdui-btn-raised mdui-ripple mdui-text-color-yellow mdui-color-pink" href="https://office.com/login" target="_blank" style="float: right">前往登录</a>
+                    <div style="clear: both"></div>
+                </div>
+
+                <div class="mdui-progress" style="display: none">
+                    <div class="mdui-progress-indeterminate"></div>
+                </div>
+
+                <div class="mdui-col-xs-12 mdui-col-md-6" id="accountInfo">
+                    <div class="mdui-typo-subheading">账号信息：</div>
+                    <br>
+                    <div class="mdui-col-xs-12">
+                        <span>订阅：</span>
+                        <select class="mdui-select" name="subscription" mdui-select id="subscription">
+                            <!-- <option value="a1">A1</option> -->
+                            [html_subscriptions]
+                        </select>
+                    </div>
+                    <div class="mdui-textfield mdui-textfield-floating-label mdui-col-xs-12">
+                        <label class="mdui-textfield-label">姓名</label>
+                        <input class="mdui-textfield-input" type="text" maxlength="20" required id="displayname" name="displayname">
+                        <div class="mdui-textfield-error">用户名仅限中文/英文/数字</div>
+                        <div class="mdui-textfield-helper">账号展示的姓名</div>
+                    </div>
+                    <div class="email mdui-col-xs-12">
+                        <div class="mdui-textfield mdui-textfield-floating-label" style="width: 100%">
+                            <label class="mdui-textfield-label">用户名</label>
+                            <input class="mdui-textfield-input" type="text" maxlength="20" required id="username" name="username" pattern="^[A-Za-z0-9]+$">
+                            <div class="mdui-textfield-error">邮箱前缀仅限英文/数字</div>
+                            <div class="mdui-textfield-helper">邮箱 @ 前面的字符</div>
+                        </div>
+                        <span class="mdui-hidden-xs">&nbsp;&nbsp;&nbsp;</span>
+                        <select class="mdui-select" mdui-select style="margin-bottom: 28px; color: black" name="domain" id="domain">
+                            <!-- <option value="rthhhhhhhhertghhhhhhhrt.com">@rthhhhhhhhertghhhhhhhrt.com</option> -->
+                            [html_domains]
+                        </select>
+                    </div>
+                    <div style="clear: both"></div>
+                    <br>
+                    <br>
+                </div>
+
+                <div class="mdui-col-xs-12 mdui-col-md-5 mdui-col-offset-md-1" id="activation">
+                    <div class="mdui-typo-subheading">激活信息：</div>
+
+                    <div class="mdui-col-xs-12 code">
+                        <div class="mdui-textfield mdui-textfield-floating-label" style="width: 100%">
+                            <label class="mdui-textfield-label">激活码</label>
+                            <input class="mdui-textfield-input" type="text" required id="code" name="code">
+                            <div class="mdui-textfield-error">必填</div>
+                        </div>
+                        <span>&nbsp;&nbsp;&nbsp;</span>
+                        <button class="mdui-btn mdui-color-pink mdui-ripple" id="getCode" style="margin-bottom: 28px; padding: 0">获取激活码</button>
+                    </div>
+
+                    <div class="mdui-col-xs-12">
+                        <br>
+                        <div id="g-recaptcha"></div>
+                        <br>
+                        <input type="submit" class="mdui-col-xs-12 mdui-btn mdui-ripple mdui-color-pink hero-button" style="float: right" id="submit">
+                    </div>
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mdui/0.4.3/js/mdui.min.js"></script>
+    <script>
+        var $$ = mdui.JQ;
+        $$(document).ready(function() {
+            var html_notice = '[html_notice]';
+            if (html_notice != undefined) {
+                mdui.dialog({
+                    title: '公告',
+                    content: html_notice,
+                    buttons: [{
+                        text: '我知道了'
+                    }]
+                });
+            }
+
+        });
+
+        var enroll = new mdui.Dialog('#enroll', {
+            'modal': true
+        });
+
+        $$('#getOffice').on('click', function(e) {
+            enroll.open();
+            grecaptcha.render('g-recaptcha', {
+                'sitekey': '[recapctha_config_site_key]',
+                'theme': 'dark'
+            });
+        });
+        $$('#getCode').on('click', function(e) {
+            e.preventDefault();
+            window.location.href = '';
+        });
+
+        $$('form').on('submit', function(e) {
+            e.preventDefault();
+
+            var formData = {
+                subscription: $$('#subscription').val(),
+                displayname: $$('#displayname').val().trim(),
+                username: $$('#username').val().trim(),
+                domain: $$('#domain').val(),
+                code: $$('#code').val().trim(),
+                grecaptcha_token: grecaptcha.getResponse()
+            };
+
+            $$('#accountInfo, #activation').hide();
+            $$('.mdui-progress').show();
+            $$('.enroll').height('auto');
+            $$('hr').hide();
+            mdui.mutation();
+
+            $$.ajax({
+                method: 'POST',
+                url: '/mscreate',
+                data: JSON.stringify(formData),
+                contentType: 'application/json',
+                success: function(resData) {
+                    var response = JSON.parse(resData);
+                    $$('.mdui-progress').hide();
+                    $$('hr').show();
+                    switch (response.stat) {
+                        case 'success':
+                            $$('#createdAccount').show();
+                            $$('#email').val(response.email);
+                            $$('#password').val(response.password);
+                            break;
+                        case 'username exists':
+                            var usernameExists = new mdui.Dialog('#usernameExists');
+                            usernameExists.open();
+                            $$('#accountInfo #activation').show();
+                            break;
+                        case 'wrong recaptcha':
+                            var wrongrecaptcha = new mdui.Dialog('#wrongrecaptcha');
+                            wrongrecaptcha.open();
+                            $$('#accountInfo #activation').show();
+                            break;
+                        case 'invalid code':
+                            var invalidcode = new mdui.Dialog('#invalidcode');
+                            invalidcode.open();
+                            $$('#accountInfo #activation').show();
+                            break;
+                        default:
+                            mdui.alert(JSON.stringify(response));
+                            break;
+                    }
+                    grecaptcha.reset();
+                    $$('.enroll').height('auto');
+                }
+            });
+
+
+        });
+
+    </script>
+</body>
+
+</html>
