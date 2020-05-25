@@ -1,0 +1,17 @@
+</select>
+                    </div>
+                    <div class="mdui-textfield mdui-textfield-floating-label mdui-col-xs-12">
+                        <label class="mdui-textfield-label">姓名</label>
+                        <input class="mdui-textfield-input" type="text" maxlength="20" required id="displayname" name="displayname">
+                        <div class="mdui-textfield-error">用户名仅限中文/英文/数字</div>
+                        <div class="mdui-textfield-helper">账号展示的姓名</div>
+                    </div>
+                    <div class="email mdui-col-xs-12">
+                        <div class="mdui-textfield mdui-textfield-floating-label" style="width: 100%">
+                            <label class="mdui-textfield-label">用户名</label>
+                            <input class="mdui-textfield-input" type="text" maxlength="20" required id="username" name="username" pattern="^[A-Za-z0-9]+$">
+                            <div class="mdui-textfield-error">邮箱前缀仅限英文/数字</div>
+                            <div class="mdui-textfield-helper">邮箱 @ 前面的字符</div>
+                        </div>
+                        <span>&nbsp;&nbsp;&nbsp;</span>
+                        <select class="mdui-select" mdui-select style="margin-bottom: 28px; color: black" name="domain" id="domain">
