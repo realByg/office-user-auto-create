@@ -22,5 +22,5 @@
 
 
 
-6 复制 index.js 里面的内容到 cf workers 里面，填入相应的数据
+6 复制 worker.js 里面的内容到 cf workers 里面，填入相应的数据
 
