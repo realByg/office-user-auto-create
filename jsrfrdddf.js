@@ -1,6 +1,7 @@
 var $$ = mdui.JQ;
 $$(document).ready(function () {
 
+    var html_notice = '';
     $$.ajax({
         method: 'POST',
         url: '/configs',
@@ -17,7 +18,7 @@ $$(document).ready(function () {
             grecaptcha.render('g-recaptcha', {
                 'sitekey': response.recaptcha_site_key
             });
-            var html_notice = response.notice;
+            html_notice = response.notice;
         }
     });
 
