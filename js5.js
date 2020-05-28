@@ -1,40 +1,10 @@
 var $$ = mdui.JQ;
 
-var html_notice = '';
-$$.ajax({
-    method: 'POST',
-    url: '/configs',
-    success: function (responseData) {
-        var response = JSON.parse(responseData);
-        $$('#subscription').html('<option value="' + response.subscription + '">' + response.subscription + '</option>');
-        $$('#domain').html('');
-        for (domain of response.domains) {
-            $$('#domain').append('<option value="' + domain + '">@ ' + domain + '</option>');
-        }
-        $$('#code_store_link').on('click', function (e) {
-            window.open(response.code_store_link);
-        });
-        grecaptcha.render('g-recaptcha', {
-            'sitekey': response.recaptcha_site_key
-        });
-        html_notice = response.notice;
-    }
-});
-
 $$(document).ready(function () {
-    
-    mdui.mutation();
-
-    if (html_notice != '') {
-        mdui.dialog({
-            title: '公告',
-            content: html_notice,
-            buttons: [{
-                text: '我知道了'
-            }]
-        });
+    if ($$('#notice>.mdui-dialog-content') != '') {
+        var notice = new mdui.Dialog('#notice');
+        notice.open();
     }
-
 });
 
 var enroll = new mdui.Dialog('#enroll', {
@@ -81,17 +51,20 @@ $$('form').on('submit', function (e) {
                 case 'username exists':
                     $$('#accountInfo, #activation').show();
                     enroll.close();
-                    mdui.alert('用户名已存在，请重试！');
+                    var usernameExists = new mdui.Dialog('#usernameExists');
+                    usernameExists.open();
                     break;
                 case 'wrong recaptcha':
                     $$('#accountInfo, #activation').show();
                     enroll.close();
-                    mdui.alert('人机验证错误！');
+                    var wrongRecaptcha = new mdui.Dialog('#wrongRecaptcha');
+                    wrongRecaptcha.open();
                     break;
                 case 'invalid code':
                     $$('#accountInfo, #activation').show();
                     enroll.close();
-                    mdui.alert('激活码无效！');
+                    var invalidCode = new mdui.Dialog('#invalidCode');
+                    invalidCode.open();
                     break;
                 default:
                     enroll.close();
