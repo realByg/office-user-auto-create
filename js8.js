@@ -1,7 +1,7 @@
 var $$ = mdui.JQ;
 
 $$(document).ready(function () {
-    if ($$('#notice>.mdui-dialog-content') != '') {
+    if ($$('#notice>.mdui-dialog-content').html() != '') {
         var notice = new mdui.Dialog('#notice');
         notice.open();
     }
