@@ -1,6 +1,6 @@
 const site_config = {
     'notice': '', //公告内容，留空则不显示
-    'code_store_link': 'https://google.com', //小店链接
+    'code_store_link': '', //小店链接
     'line1': '欢迎使用 Office',
     'line2': '你可在这里创作、沟通、协作并完成重要工作。',
     'code_api_link': ''
@@ -10,16 +10,19 @@ const ms_config = {
     'tenant_id': '',
     'client_id': '',
     'client_secret': '',
-    'subscription': {
-        'name': '', //订阅名称，如 A1
+    'subscriptions': [{
+        'name': '',  //eg. Office 365 A1 for faculty
         'skuId': ''
-    },
-    'domains': ['gay.onmicrosoft.com', 'edede.edu']
+    }, {
+        'name': '',
+        'skuId': ''
+    }],
+    'domains': ['domain.com', 'domain.net']
 };
 
 const recaptcha_config = {
-    'site_key': '',
-    'secret_key': ''
+    'site_key': '6Lf3NskUAAAAALT16dmqviBch3FR3wyZssYj67sU',
+    'secret_key': '6Lf3NskUAAAAAJsczgsy5ECM10M_a_LcYQxzz1mz'
 };
 
 
@@ -58,7 +61,7 @@ function password_gen() {
 async function validateRecaptcha(token) {
     const url = 'https://www.google.com/recaptcha/api/siteverify';
     const post_data = {
-        secret: recapctha_config.secret_key,
+        secret: recaptcha_config.secret_key,
         response: token
     };
     const reqOpt = {
@@ -99,10 +102,17 @@ async function get_ms_token() {
 
 async function assignLicense(userEmail, access_token, requestBody) {
     const url = 'https://graph.microsoft.com/v1.0/users/' + userEmail + '/assignLicense';
+    var skuId = '';
+    for (var subscription of ms_config.subscriptions) {
+        if (subscription.name == requestBody.subscription) {
+            skuId = subscription.skuId;
+            break;
+        }
+    }
     const post_data = {
         "addLicenses": [{
             "disabledPlans": [],
-            "skuId": ms_config.subscription.skuId
+            "skuId": skuId
         }],
         "removeLicenses": []
     };
@@ -241,10 +251,13 @@ async function handleRequest(request) {
             }
             break;
         default:
-            var resposne = await fetch('https://cdn.jsdelivr.net/gh/zayabighead/msautocreate@master/index.htm');
+            var resposne = await fetch('https://cdn.jsdelivr.net/gh/zayabighead/msautocreate@master/html');
             var html = await resposne.text();
 
-            var html_subscription = `<option value="${ms_config.subscription.name}">${ms_config.subscription.name}</option>`;
+            var html_subscriptions = '';
+            for (var subscription of ms_config.subscriptions) {
+                html_subscriptions += `<option value="${subscription.name}">${subscription.name}</option>`;
+            }
             var html_domains = '';
             for (var domain of ms_config.domains) {
                 html_domains += `<option value="${domain}">@ ${domain}</option>`;
@@ -254,7 +267,7 @@ async function handleRequest(request) {
                 notice: site_config.notice,
                 line1: site_config.line1,
                 line2: site_config.line2,
-                subscription: html_subscription,
+                subscriptions: html_subscriptions,
                 domains: html_domains,
                 code_store_link: site_config.code_store_link,
                 recaptcha_sitekey: recaptcha_config.site_key
