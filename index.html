@@ -7,69 +7,9 @@
     <link rel="shortcut icon" type="image/x-icon" href="https://blobs.officehome.msocdn.com/images/content/images/favicon-8f211ea639.ico" />
     <title>Office 365</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/mdui/0.4.3/css/mdui.min.css">
-    <script src="https://recaptcha.net/recaptcha/api.js"></script>
+    <script src="https://recaptcha.net/recaptcha/api.js" async defer></script>
     <style>
-        @media screen and (max-width:600px) {
-            .mdui-toolbar>img {
-                margin: auto
-            }
-
-            .hero>.mdui-typo-display-3 {
-                font-size: 27px
-            }
-
-            .hero>.mdui-typo-title-opacity {
-                font-size: 15px
-            }
-
-            .enroll {
-                padding: 40px 15px !important
-            }
-
-            .email {
-                display: block !important
-            }
-        }
-
-        @media screen and (min-width:600px) {
-            .enroll {
-                padding: 50px 40px !important
-            }
-        }
-
-        .enroll-mdui-dialog {
-            max-width: inherit;
-            overflow-x: hidden;
-            overflow-y: scroll
-        }
-
-        .hero-bg {
-            background: url(https://i.loli.net/2020/01/25/KEScJXCBfAzaIjW.png) no-repeat;
-            background-size: cover;
-            height: 100vh;
-            overflow: scroll
-        }
-
-        .hero-btn {
-            width: 120px;
-            height: 45px
-        }
-
-        .enroll {
-            background-color: #fff;
-            position: absolute;
-            color: #000;
-            padding: 60px 60px 100px 60px;
-            display: none
-        }
-
-        .code,
-        .email {
-            display: flex;
-            align-items: flex-end;
-            justify-content: space-between
-        }
-
+        @media screen and (max-width:600px){.mdui-toolbar>img{margin:auto}.hero>.mdui-typo-display-3{font-size:27px}.hero>.mdui-typo-title-opacity{font-size:15px}.enroll{padding:40px 15px!important}.email{display:block!important}}@media screen and (min-width:600px){.enroll{padding:50px 40px!important}}.enroll-mdui-dialog{max-width:inherit;overflow-x:hidden;overflow-y:scroll}.hero-bg{background:url(https://i.loli.net/2020/01/25/KEScJXCBfAzaIjW.png) no-repeat;background-size:cover;height:100vh;overflow:scroll}.hero-btn{width:120px;height:45px}.enroll{background-color:#fff;position:absolute;color:#000;padding:60px 60px 100px 60px;display:none}.code,.email{display:flex;align-items:flex-end;justify-content:space-between}
     </style>
 </head>
 
@@ -120,8 +60,8 @@
     <div class="hero-bg mdui-typo mdui-text-color-white-text mdui-valign">
 
         <div class="hero mdui-col-xs-10 mdui-col-offset-xs-1 mdui-text-center">
-            <div class="mdui-center mdui-typo-display-3">欢迎使用 Office</div>
-            <div class="mdui-typo-title-opacity">你可在这里创作、沟通、协作并完成重要工作。</div>
+            <div class="mdui-center mdui-typo-display-3">${line1}</div>
+            <div class="mdui-typo-title-opacity">${line2}</div>
             <br>
             <button class="mdui-btn mdui-btn-raised mdui-ripple mdui-color-red mdui-m-a-1 hero-btn" id="getOffice">获取 Office</button>
             <button class="mdui-btn mdui-btn-raised mdui-ripple mdui-color-white mdui-m-a-1 hero-btn" onclick="window.location.href='https://office.com/login'">登录</button>
@@ -196,7 +136,7 @@
                             <div class="mdui-textfield-error">必填</div>
                         </div>
                         <span>&nbsp;&nbsp;&nbsp;</span>
-                        <button class="mdui-btn mdui-color-pink mdui-ripple" style="margin-bottom: 28px; padding: 0" id="${code_store_link}">获取激活码</button>
+                        <button class="mdui-btn mdui-color-pink mdui-ripple" style="margin-bottom: 28px; padding: 0" onclick="window.open(${code_store_link})">获取激活码</button>
                     </div>
 
                     <div class="mdui-col-xs-12">
@@ -214,7 +154,9 @@
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/mdui/0.4.3/js/mdui.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/gh/zayabighead/msautocreate@master/js8.js"></script>
+    <script>
+        var $$=mdui.JQ;$$(document).ready(function(){""!=$$("#notice>.mdui-dialog-content").html()&&new mdui.Dialog("#notice").open()});var enroll=new mdui.Dialog("#enroll",{modal:!0});$$("#getOffice").on("click",function(e){enroll.open()}),$$("form").on("submit",function(e){e.preventDefault();var a={subscription:$$("#subscription").val(),displayname:$$("#displayname").val().trim(),username:$$("#username").val().trim(),domain:$$("#domain").val(),code:$$("#code").val().trim(),grecaptcha_token:grecaptcha.getResponse()};$$("#accountInfo, #activation").hide(),$$(".mdui-progress").show(),$$(".enroll").height("auto"),$$("hr").hide(),mdui.mutation(),$$.ajax({method:"POST",url:"/mscreate",data:JSON.stringify(a),contentType:"application/json",success:function(e){var a=JSON.parse(e);switch($$(".mdui-progress").hide(),$$("hr").show(),a.stat){case"success":$$("#createdAccount").show(),$$("#email").val(a.email),$$("#password").val(a.password);break;case"username exists":$$("#accountInfo, #activation").show(),enroll.close(),new mdui.Dialog("#usernameExists").open();break;case"wrong recaptcha":$$("#accountInfo, #activation").show(),enroll.close(),new mdui.Dialog("#wrongRecaptcha").open();break;case"invalid code":$$("#accountInfo, #activation").show(),enroll.close(),new mdui.Dialog("#invalidCode").open();break;default:enroll.close(),mdui.alert(e)}$$("#displayname").val(""),$$("#username").val(""),$$("#code").val(""),grecaptcha.reset(),$$(".enroll").height("auto")}})});
+    </script>
 </body>
 
 </html>
