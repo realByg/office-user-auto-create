@@ -1,28 +1,29 @@
 var $$ = mdui.JQ;
-$$(document).ready(function () {
 
-    var html_notice = '';
-    $$.ajax({
-        method: 'POST',
-        url: '/configs',
-        success: function (responseData) {
-            var response = JSON.parse(responseData);
-            $$('#subscription').html('<option value="' + response.subscription + '">' + response.subscription + '</option>');
-            $$('#subscription').mutation();
-            $$('#domain').html('');
-            for (domain of response.domains) {
-                $$('#domain').append('<option value="' + domain + '">@ ' + domain + '</option>');
-            }
-            $$('#domain').mutation();
-            $$('#code_store_link').on('click', function (e) {
-                window.open(response.code_store_link);
-            });
-            grecaptcha.render('g-recaptcha', {
-                'sitekey': response.recaptcha_site_key
-            });
-            html_notice = response.notice;
+var html_notice = '';
+$$.ajax({
+    method: 'POST',
+    url: '/configs',
+    success: function (responseData) {
+        var response = JSON.parse(responseData);
+        $$('#subscription').html('<option value="' + response.subscription + '">' + response.subscription + '</option>');
+        $$('#domain').html('');
+        for (domain of response.domains) {
+            $$('#domain').append('<option value="' + domain + '">@ ' + domain + '</option>');
         }
-    });
+        $$('#code_store_link').on('click', function (e) {
+            window.open(response.code_store_link);
+        });
+        grecaptcha.render('g-recaptcha', {
+            'sitekey': response.recaptcha_site_key
+        });
+        html_notice = response.notice;
+    }
+});
+
+$$(document).ready(function () {
+    
+    mdui.mutation();
 
     if (html_notice != '') {
         mdui.dialog({
