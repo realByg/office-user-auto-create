@@ -7,19 +7,19 @@ const site_config = {
 };
 
 const ms_config = {
-    'tenant_id': '5eaf8f20-13e1-454e-b955-8992dd213927',
-    'client_id': 'e9fcf945-32fd-4f7e-aded-756049f7d8e2',
-    'client_secret': '5cbZ6tuCg48yFN.TWUI15Un-G-OHg~_p6_',
+    'tenant_id': '',
+    'client_id': '',
+    'client_secret': '',
     'subscription': {
-        'name': 'A1',
-        'skuId': '94763226-9b3c-4e75-a931-5c89701abe66'
+        'name': '',
+        'skuId': ''
     },
-    'domains': ['outgianthard.onmicrosoft.com', 'edede.edu']
+    'domains': ['gay.onmicrosoft.com', 'edede.edu']
 };
 
 const recaptcha_config = {
-    'site_key': '6Lf3NskUAAAAALT16dmqviBch3FR3wyZssYj67sU',
-    'secret_key': '6Lf3NskUAAAAAJsczgsy5ECM10M_a_LcYQxzz1mz'
+    'site_key': '',
+    'secret_key': ''
 };
 
 
