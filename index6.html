@@ -7,13 +7,105 @@
     <link rel="shortcut icon" type="image/x-icon" href="https://blobs.officehome.msocdn.com/images/content/images/favicon-8f211ea639.ico" />
     <title>Office 365</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/mdui/0.4.3/css/mdui.min.css">
-    <script src="https://recaptcha.net/recaptcha/api.js" async defer></script>
+    <script src="https://recaptcha.net/recaptcha/api.js"></script>
     <style>
-        @media screen and (max-width:600px){.mdui-toolbar>img{margin:auto}.hero>.mdui-typo-display-3{font-size:27px}.hero>.mdui-typo-title-opacity{font-size:15px}.enroll{padding:40px 15px!important}.email{display:block!important}}@media screen and (min-width:600px){.enroll{padding:50px 40px!important}}.enroll-mdui-dialog{max-width:inherit;overflow-x:hidden;overflow-y:scroll}.hero-bg{background:url(https://i.loli.net/2020/01/25/KEScJXCBfAzaIjW.png) no-repeat;background-size:cover;height:100vh;overflow:scroll}.hero-btn{width:120px;height:45px}.enroll{background-color:#fff;position:absolute;color:#000;padding:60px 60px 100px 60px;display:none}.code,.email{display:flex;align-items:flex-end;justify-content:space-between}
+        @media screen and (max-width:600px) {
+            .mdui-toolbar>img {
+                margin: auto
+            }
+
+            .hero>.mdui-typo-display-3 {
+                font-size: 27px
+            }
+
+            .hero>.mdui-typo-title-opacity {
+                font-size: 15px
+            }
+
+            .enroll {
+                padding: 40px 15px !important
+            }
+
+            .email {
+                display: block !important
+            }
+        }
+
+        @media screen and (min-width:600px) {
+            .enroll {
+                padding: 50px 40px !important
+            }
+        }
+
+        .enroll-mdui-dialog {
+            max-width: inherit;
+            overflow-x: hidden;
+            overflow-y: scroll
+        }
+
+        .hero-bg {
+            background: url(https://i.loli.net/2020/01/25/KEScJXCBfAzaIjW.png) no-repeat;
+            background-size: cover;
+            height: 100vh;
+            overflow: scroll
+        }
+
+        .hero-btn {
+            width: 120px;
+            height: 45px
+        }
+
+        .enroll {
+            background-color: #fff;
+            position: absolute;
+            color: #000;
+            padding: 60px 60px 100px 60px;
+            display: none
+        }
+
+        .code,
+        .email {
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-between
+        }
+
     </style>
 </head>
 
 <body>
+
+    <div class="mdui-dialog" id="notice">
+        <div class="mdui-dialog-title">公告</div>
+        <div class="mdui-dialog-content">${notice}</div>
+        <div class="mdui-dialog-actions">
+            <button class="mdui-btn mdui-ripple" mdui-dialog-confirm>我知道了</button>
+        </div>
+    </div>
+
+    <div class="mdui-dialog" id="usernameExists">
+        <div class="mdui-dialog-title">创建失败...</div>
+        <div class="mdui-dialog-content">用户名已存在，请重试！</div>
+        <div class="mdui-dialog-actions">
+            <button class="mdui-btn mdui-ripple" mdui-dialog-confirm>我知道了</button>
+        </div>
+    </div>
+    
+    <div class="mdui-dialog" id="wrongRecaptcha">
+        <div class="mdui-dialog-title">创建失败...</div>
+        <div class="mdui-dialog-content">人机验证错误！</div>
+        <div class="mdui-dialog-actions">
+            <button class="mdui-btn mdui-ripple" mdui-dialog-confirm>我知道了</button>
+        </div>
+    </div>
+    
+    <div class="mdui-dialog" id="invalidCode">
+        <div class="mdui-dialog-title">创建失败...</div>
+        <div class="mdui-dialog-content">激活码无效！</div>
+        <div class="mdui-dialog-actions">
+            <button class="mdui-btn mdui-ripple" mdui-dialog-confirm>我知道了</button>
+        </div>
+    </div>
 
     <div class="mdui-appbar">
         <div class="mdui-toolbar" style="width: 85%; margin: auto">
@@ -68,7 +160,7 @@
                     <div class="mdui-col-xs-12">
                         <span>订阅：</span>
                         <select class="mdui-select" name="subscription" mdui-select id="subscription">
-                            加载中...
+                            ${subscription}
                         </select>
                     </div>
                     <div class="mdui-textfield mdui-textfield-floating-label mdui-col-xs-12">
@@ -86,7 +178,7 @@
                         </div>
                         <span class="mdui-hidden-xs">&nbsp;&nbsp;&nbsp;</span>
                         <select class="mdui-select" mdui-select style="margin-bottom: 28px; color: black" name="domain" id="domain">
-                            加载中...
+                            ${domains}
                         </select>
                     </div>
                     <div style="clear: both"></div>
@@ -104,12 +196,12 @@
                             <div class="mdui-textfield-error">必填</div>
                         </div>
                         <span>&nbsp;&nbsp;&nbsp;</span>
-                        <button class="mdui-btn mdui-color-pink mdui-ripple" style="margin-bottom: 28px; padding: 0" id="code_store_link">获取激活码</button>
+                        <button class="mdui-btn mdui-color-pink mdui-ripple" style="margin-bottom: 28px; padding: 0" id="${code_store_link}">获取激活码</button>
                     </div>
 
                     <div class="mdui-col-xs-12">
                         <br>
-                        <div id="g-recaptcha"></div>
+                        <div class="g-recaptcha" data-sitekey="${recaptcha_sitekey}"></div>
                         <br>
                         <input type="submit" class="mdui-col-xs-12 mdui-btn mdui-ripple mdui-color-pink hero-button" style="float: right" id="submit">
                     </div>
@@ -122,7 +214,7 @@
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/mdui/0.4.3/js/mdui.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/gh/zayabighead/msautocreate@master/js4.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/zayabighead/msautocreate@master/js5.js"></script>
 </body>
 
 </html>
