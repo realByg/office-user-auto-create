@@ -21,8 +21,8 @@ const ms_config = {
 };
 
 const recaptcha_config = {
-    'site_key': '6Lf3NskUAAAAALT16dmqviBch3FR3wyZssYj67sU',
-    'secret_key': '6Lf3NskUAAAAAJsczgsy5ECM10M_a_LcYQxzz1mz'
+    'site_key': '',
+    'secret_key': ''
 };
 
 
