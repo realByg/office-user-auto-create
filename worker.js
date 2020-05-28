@@ -1,6 +1,6 @@
 const site_config = {
     'notice': '', //公告内容，留空则不显示
-    'code_store_link': '', //买激活码的发卡店链接
+    'code_store_link': '', //卖激活码的发卡店链接
     'line1': '欢迎使用 Office',
     'line2': '你可在这里创作、沟通、协作并完成重要工作。',
     'code_api_link': ''
