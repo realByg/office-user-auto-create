@@ -11,7 +11,7 @@ const ms_config = {
     'client_id': '',
     'client_secret': '',
     'subscription': {
-        'name': '',
+        'name': '', //订阅名称，如 A1
         'skuId': ''
     },
     'domains': ['gay.onmicrosoft.com', 'edede.edu']
