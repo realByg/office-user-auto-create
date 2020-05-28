@@ -8,10 +8,12 @@ $$(document).ready(function () {
         success: function (responseData) {
             var response = JSON.parse(responseData);
             $$('#subscription').html('<option value="' + response.subscription + '">' + response.subscription + '</option>');
+            $$('#subscription').mutation();
             $$('#domain').html('');
             for (domain of response.domains) {
                 $$('#domain').append('<option value="' + domain + '">@ ' + domain + '</option>');
             }
+            $$('#domain').mutation();
             $$('#code_store_link').on('click', function (e) {
                 window.open(response.code_store_link);
             });
