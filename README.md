@@ -31,4 +31,7 @@
 # 带激活码版
 
 `code_api_link` 值为激活码 `api` 接口链接
+关于 `api` 链接：
+具体实现方法就是查询数据库并返回`true`或`false` ，web服务器加sql数据库即可实现
+
 > telegram@ratherbeasleep 可有偿定制 `api`
