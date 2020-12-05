@@ -2,6 +2,6 @@
 with cloudflare workers
 
 # Changelog
-用 React 重写页面，配合 KV 存储激活码
+Rewrote web page with React，use KV to store codes
 
 # Usage
