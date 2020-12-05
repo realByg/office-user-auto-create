@@ -201,6 +201,16 @@ const handleRequest = async request => {
 	const requestPath = requestUrl.pathname
 
 	switch (requestPath) {
+		case '/':
+			const html = await fetch(
+				'https://cdn.jsdelivr.net/gh/zayabighead/Office-User-Auto-Create@master/build/index.html'
+			)
+			return new Response(await html.text(), {
+				status: 200,
+				headers: {
+                    "Content-Type": "text/html; charset=utf-8"
+                }
+			})
 		case '/' + genCodesPassword:
 			let codes = []
 			for (let i = 0; i <= genCodesAmount; i++) {
