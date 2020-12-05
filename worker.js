@@ -159,7 +159,7 @@ class Code {
 		this.code_k = c.split('@')[0]
 		this.code_v = c.split('@')[1]
 	}
-	
+
 	async validate() {
 		const v = await KV.get(this.code_k)
 		if (!!v && v === this.code_v) {
@@ -205,12 +205,14 @@ const handleRequest = async request => {
 			const html = await fetch(
 				'https://cdn.jsdelivr.net/gh/zayabighead/Office-User-Auto-Create@master/build/index.html'
 			)
-			return new Response(await html.text(), {
-				status: 200,
-				headers: {
-                    "Content-Type": "text/html; charset=utf-8"
-                }
-			})
+			return new Response(
+				await html.text(), {
+					status: 200,
+					headers: {
+						"Content-Type": "text/html; charset=utf-8"
+					}
+				}
+			)
 		case '/' + genCodesPassword:
 			let codes = []
 			for (let i = 0; i <= genCodesAmount; i++) {
@@ -221,8 +223,8 @@ const handleRequest = async request => {
 			return new Response(codes.join('<br>'), {
 				status: 200,
 				headers: {
-                    "Content-Type": "text/html; charset=utf-8"
-                }
+					"Content-Type": "text/html; charset=utf-8"
+				}
 			})
 		case '/getNotice':
 			return new Response(notice, {
