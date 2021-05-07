@@ -14,7 +14,7 @@ new demo at https://office-user-auto-create.zaya.workers.dev/
 ### create a KV with namespace of your choosing
 ### bind the namespace of the KV to `_KV`
 ### done
-### you can generate codes by visting https://url.of.your.workers.dev/<super secret password>
+### you can generate codes by visting `https://url.of.your.workers.dev/<super secret password>`
 
 
 #### 可以看看 https://www.kskb.eu.org/2021/02/office-user-auto-create.html 
