@@ -10,7 +10,7 @@ new demo at https://office-user-auto-create.zaya.workers.dev/
 
 ### create a cloudflare worker with the name of your choosing
 ### copy and paste `worker.js` to your worker
-### save and deploy
+### edit the script accordingly then save and deploy
 ### create a KV with namespace of your choosing
 ### bind the namespace of the KV to `_KV`
 ### done
