@@ -274,3 +274,7 @@ const handleRequest = async request => {
 			})
 	}
 }
+
+addEventListener('fetch', event => {
+  event.respondWith(handleRequest(event.request))
+})
