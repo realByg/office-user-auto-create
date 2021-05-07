@@ -23,7 +23,7 @@ const AADConfig = {
 
 const KV = _KV
 
-const genCodesPassword = 'password'
+const genCodesPassword = 'super secret password'
 const genCodesAmount = 10
 
 
