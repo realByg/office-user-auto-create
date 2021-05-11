@@ -19,7 +19,7 @@
 
 3. Fork 项目并启用 GitHub Actions
 
-4. 回到 Cloudfalre Worker 开始部署项目
+4. 回到 Cloudflare Worker 开始部署项目
 
    ![](readme/de815073.png)
 
