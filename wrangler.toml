@@ -12,7 +12,3 @@ _OFFICE_DOMAINS = '["domain1.com", "domain2.org"]'
 _OFFICE_SUBSCRIPTIONS = '[{ "name": "subscription 1", "sku": "subscription id" }]'
 _USERNAME_BLACKLIST = '["admin", "gay"]'
 _GENERATE_CODES_SECRET_PATH = '/some_secret'
-
-[[kv_namespaces]]
-binding = '_KV'
-id = ''
