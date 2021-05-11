@@ -8,7 +8,7 @@
 
 ## 🚚 部署
 
-[![Deploy to Cloudflare Workers](https://deploy.workers.cloudflare.com/button)](https://deploy.workers.cloudflare.com/?url=https://github.com/zayabighead/office-user-auto-create/tree/worker)
+[![Deploy to Cloudflare Workers](https://deploy.workers.cloudflare.com/button)](https://deploy.workers.cloudflare.com/?url=https://github.com/zayabighead/office-user-auto-create)
 
 1. 按照提示在 GitHub 上授权 Worker
 
