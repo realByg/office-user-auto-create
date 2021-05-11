@@ -6,7 +6,7 @@ import generateCodes from './routes/generate-codes'
 import getOffice from './routes/get-office'
 import getOfficeConfig from './routes/get-office-config'
 
-import {GENERATE_CODES_SECRET_PATH} from './plugins/env'
+import {GENERATE_CODES_PATH_SECRET} from './plugins/env'
 
 const router = new Router()
 
@@ -14,6 +14,6 @@ router.get('/', root)
 router.get('/announcement', announcement)
 router.get('/getOfficeConfig', getOfficeConfig)
 router.post('/getOffice', getOffice)
-router.get(`${GENERATE_CODES_SECRET_PATH}/:amount`, generateCodes)
+router.get(`/${GENERATE_CODES_PATH_SECRET}/:amount`, generateCodes)
 
 export default router

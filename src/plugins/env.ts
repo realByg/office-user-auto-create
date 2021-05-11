@@ -11,7 +11,7 @@ const OFFICE_SUBSCRIPTIONS = typeof _OFFICE_SUBSCRIPTIONS === 'undefined' ? null
 //@ts-ignore
 const KV = typeof _KV === 'undefined' ? null : _KV
 //@ts-ignore
-const GENERATE_CODES_SECRET_PATH = typeof _GENERATE_CODES_SECRET_PATH === 'undefined' ? null : _GENERATE_CODES_SECRET_PATH
+const GENERATE_CODES_PATH_SECRET = typeof _GENERATE_CODES_PATH_SECRET === 'undefined' ? null : _GENERATE_CODES_PATH_SECRET
 //@ts-ignore
 const USERNAME_BLACKLIST = typeof _USERNAME_BLACKLIST === 'undefined' ? null : _USERNAME_BLACKLIST
 
@@ -22,6 +22,6 @@ export {
     OFFICE_DOMAINS,
     OFFICE_SUBSCRIPTIONS,
     KV,
-    GENERATE_CODES_SECRET_PATH,
+    GENERATE_CODES_PATH_SECRET,
     USERNAME_BLACKLIST
 }

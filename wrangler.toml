@@ -6,7 +6,7 @@ webpack_config = 'webpack.config.js'
 
 [vars]
 _ANNOUNCEMENT = 'some announcement'
-_GET_CODE_LINK = 'get code button link'
+_GET_CODE_LINK = 'https://some.link'
 _AAD_CONFIG = '{ "tenantId": "", "clientId": "", "clientSecret": "" }'
 _OFFICE_DOMAINS = '["domain1.com", "domain2.org"]'
 _OFFICE_SUBSCRIPTIONS = '[{ "name": "subscription 1", "sku": "subscription id" }]'
