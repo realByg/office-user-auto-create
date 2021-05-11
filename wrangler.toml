@@ -1,0 +1,18 @@
+name = 'office-user-auto-create'
+account_id = ''
+type = 'webpack'
+workers_dev = true
+webpack_config = 'webpack.config.js'
+
+[vars]
+_ANNOUNCEMENT = 'some announcement'
+_GET_CODE_LINK = 'get code button link'
+_AAD_CONFIG = '{ "tenantId": "", "clientId": "", "clientSecret": "" }'
+_OFFICE_DOMAINS = '["domain1.com", "domain2.org"]'
+_OFFICE_SUBSCRIPTIONS = '[{ "name": "subscription 1", "sku": "subscription id" }]'
+_USERNAME_BLACKLIST = '["admin", "gay"]'
+_GENERATE_CODES_SECRET_PATH = '/some_secret'
+
+[[kv_namespaces]]
+binding = '_KV'
+id = ''

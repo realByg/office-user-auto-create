@@ -1,0 +1,31 @@
+{
+  "name": "cloudflare-worker-template",
+  "version": "1.0.0",
+  "description": "A Cloudflare Worker Template",
+  "main": "index.ts",
+  "scripts": {
+    "dev": "wrangler dev",
+    "preview": "wrangler preview --watch",
+    "build": "wrangler build",
+    "publish": "wrangler publish"
+  },
+  "author": "Byg",
+  "license": "MIT",
+  "devDependencies": {
+    "@babel/cli": "^7.13.16",
+    "@babel/core": "^7.14.0",
+    "@babel/plugin-proposal-class-properties": "^7.13.0",
+    "@babel/plugin-proposal-optional-chaining": "^7.13.12",
+    "@babel/plugin-transform-runtime": "^7.13.15",
+    "@babel/preset-env": "^7.14.1",
+    "@babel/preset-typescript": "^7.13.0",
+    "@cloudflare/workers-types": "^2.2.2",
+    "babel-loader": "^8.2.2",
+    "typescript": "^4.2.4",
+    "webpack": "^5.36.2",
+    "webpack-cli": "^4.7.0"
+  },
+  "dependencies": {
+    "@cfworker/web": "^1.6.11"
+  }
+}
