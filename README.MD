@@ -30,10 +30,11 @@
 6. 配置环境变量
 
    ![](readme/410ca81f.png)
-   + `_ANNOUNCEMENT`: 公告内容，去掉变量则不显示公告
-   + `_GET_CODE_LINK`: 获取激活码的连接，可以不填
-   + `_AAD_CONFIG`: [Azure Active Directory](https://portal.azure.com/#blade/Microsoft_AAD_IAM/ActiveDirectoryMenuBlade/RegisteredApps) 的 `APP` 凭证配置
-   + `_OFFICE_DOMAINS`: Office 下的域名
-   + `_OFFICE_SUBSCRIPTIONS`: Office 的的订阅配置
-   + `_USERNAME_BLACKLIST`: 用户名黑名单
-   + `_GENERATE_CODES_SECRET_PATH`: 生成激活码的路径，建议生成一个随机密码，生成激活码时浏览器访问 `https://<前缀>.workers.dev/<随机密码>/<数量>`
+    + `_ANNOUNCEMENT`: 公告内容，去掉变量则不显示公告
+    + `_GET_CODE_LINK`: 获取激活码的连接，可以不填
+    + `_AAD_CONFIG`: [Azure Active Directory](https://portal.azure.com/#blade/Microsoft_AAD_IAM/ActiveDirectoryMenuBlade/RegisteredApps)
+      的 `APP` 凭证配置
+    + `_OFFICE_DOMAINS`: Office 下的域名
+    + `_OFFICE_SUBSCRIPTIONS`: Office 的的订阅配置
+    + `_USERNAME_BLACKLIST`: 用户名黑名单
+    + `_GENERATE_CODES_SECRET_PATH`: 生成激活码的路径，建议生成一个随机密码，生成激活码时浏览器访问 `https://<前缀>.workers.dev/<随机密码>/<数量>`
