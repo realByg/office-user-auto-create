@@ -3,6 +3,7 @@ import {Middleware} from '@cfworker/web'
 import Office from '../core/office'
 import code from '../core/code'
 import randomHex from '../plugins/random-hex'
+import {USERNAME_BLACKLIST} from '../plugins/env'
 
 const getOffice: Middleware = async ({req, res}) => {
     try {
@@ -19,6 +20,14 @@ const getOffice: Middleware = async ({req, res}) => {
         const skuId = data?.skuId || (() => {throw 'skuId'})()
         const domain = data?.email?.domain || (() => {throw 'domain'})()
         const username = data?.email?.username || (() => {throw 'username'})()
+
+        if (USERNAME_BLACKLIST.includes(username)) {
+            res.body = {
+                error: 'Username not allowed'
+            }
+            res.status = 400
+            return
+        }
 
         const email = `${username}@${domain}`
         const password = randomHex(5)

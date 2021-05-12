@@ -13,7 +13,7 @@ const KV = typeof _KV === 'undefined' ? null : _KV
 //@ts-ignore
 const GENERATE_CODES_PATH_SECRET = typeof _GENERATE_CODES_PATH_SECRET === 'undefined' ? null : _GENERATE_CODES_PATH_SECRET
 //@ts-ignore
-const USERNAME_BLACKLIST = typeof _USERNAME_BLACKLIST === 'undefined' ? null : _USERNAME_BLACKLIST
+const USERNAME_BLACKLIST = typeof _USERNAME_BLACKLIST === 'undefined' ? null : JSON.parse(_USERNAME_BLACKLIST || null)
 
 export {
     ANNOUNCEMENT,

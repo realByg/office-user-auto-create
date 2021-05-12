@@ -37,4 +37,4 @@
     + `_OFFICE_DOMAINS`: Office 下的域名
     + `_OFFICE_SUBSCRIPTIONS`: Office 的的订阅配置
     + `_USERNAME_BLACKLIST`: 用户名黑名单
-    + `_GENERATE_CODES_SECRET_PATH`: 生成激活码的路径，建议生成一个随机密码，生成激活码时浏览器访问 `https://<前缀>.workers.dev/<随机密码>/<数量>`
+    + `_GENERATE_CODES_PATH_SECRET`: 生成激活码的路径，建议生成一个随机密码，生成激活码时浏览器访问 `https://<前缀>.workers.dev/<随机密码>/<数量>`
