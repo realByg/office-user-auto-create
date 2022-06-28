@@ -9,7 +9,7 @@ module.exports = {
     },
     output: {
         filename: 'worker.js',
-        path: path.join(__dirname, 'dist'),
+        path: path.join('src', 'dist'),
     },
     performance: {
         hints: false,
